@@ -99,5 +99,143 @@ where $Q_0\left(x_j\right)$ is the first component of the orthonormal eigenvecto
 
 The corresponding implementation is available in the file `jpsnw.m`.
 
+### Laguerre polynomials / functions
+We first talk the Laguerre polynomails, we denote $\mathcal{L}_n(x)$ as $n$ order Laguerre polynomials. Tthis type of polynomials are used in semi-unbounded domian, namely, $[0,\infty)$. The generalized Laguerre polynomials is denoted by $\mathcal L_n^{(\alpha)}(x),~\alpha>-1$, and when $\alpha=0$ is the classical Laguerre polynomials. 
+
+**Three-term recurrence relation**: 
+The three-term recurrence formula that generates the GLPs reads
+
+$$
+(n+1) \mathscr{L}_{n+1}^{(\alpha)}(x)=(2 n+\alpha+1-x) \mathscr{L}_n^{(\alpha)}(x)-(n+\alpha) \mathscr{L}_{n-1}^{(\alpha)}(x),
+$$
+
+and the first few members are
+
+$$
+\begin{aligned}
+& \mathscr{L}_0^{(\alpha)}(x)=1; \\
+& \mathscr{L}_1^{(\alpha)}(x)=-x+\alpha+1.
+\end{aligned}
+$$
+
+The corresponding implementation is available in the file `laps.m`.
+
+**Computation of Nodes and Weights**: 
+We supply an iteration method, which is more stable than compute the eigenvalue and eigenvector of the matrix. 
+
+(a) find the roots of the equation
+
+$$
+y_j^{(\alpha)}-\sin y_j^{(\alpha)}=2 \pi \frac{N-j+3 / 4}{2 N+\alpha+3}, \quad 0 \leq j \leq N
+$$
+
+(b) set
+
+$$
+\hat{y}_j^{(\alpha)}=\left(\cos \frac{1}{2} y_j^{(\alpha)}\right)^2, \quad 0 \leq j \leq N
+$$
+
+and
+
+$$
+\begin{aligned}
+z_j^{(\alpha)} & =2(2 N+\alpha+3) \hat{y}_j^{(\alpha)} \\
+& -\frac{1}{6(2 N+\alpha+3)}\left(\frac{5}{4\left(1-\hat{y}_j^{(\alpha)}\right)^2}-\frac{1}{1-\hat{y}_j^{(\alpha)}}-1+3 \alpha^2\right),
+\end{aligned}
+$$
+
+which provides a good approximation of $x_j^{(\alpha)}$.
+
+For weights, they have the representations:
+
+$$
+\omega_j=\frac{x_j}{(N+1)^2 \mathscr{L}_N^2\left(x_j\right)}, \quad 0 \leq j \leq N .
+$$
+
+The corresponding implementation is available in the file `lapsnw.m`.
+
+**Laguerre functions**: 
+The generalized Laguerre functions (GLFs) are defined by
+
+$$
+\widehat{\mathscr{L}}_n^{(\alpha)}(x):=e^{-x / 2} \mathscr{L}_n^{(\alpha)}(x), \quad x \in \mathbb{R}_{+}, \quad \alpha>-1
+$$
+
+The corresponding implementation is available in the file `lafs.m`.
+
+**Computation of Nodes and Weights (Laguerre funtions)**: 
+Consequently, it is desirable to compute $\{\omega_j^{(\alpha)}\}_{j=0}^N$ by
+
+$$
+\hat{\omega}_j^{(\alpha)}=e^{x_j^{(\alpha)}} \omega_j^{(\alpha)}, \quad 0 \leq j \leq N.
+$$
+
+The corresponding implementation is available in the file `lafsnw.m`.
+
+### Hermite polynomials / functions
+We first talk the Hermite polynomails, we denote $H_n(x)$ as $n$ order Hermite polynomials. This type of polynomials are used in unbounded domian, namely, $[-\infty,+\infty)$. 
+
+**Three-term recurrence relation**: 
+The Hermite polynomials satisfy the three-term recurrence relation:
+
+$$
+H_{n+1}(x)=2 x H_n(x)-2 n H_{n-1}(x), \quad n \geq 1,
+$$
+
+and the first few members are
+
+$$
+\begin{aligned}
+& H_0(x)=1; \\
+& H_1(x)=2 x; \\
+& H_2(x)=4 x^2-2; \\
+& H_3(x)=8 x^3-12 x; \\
+& H_4(x)=16 x^4-48 x^2+12 .
+\end{aligned}
+$$
+
+The corresponding implementation is available in the file `hps.m`.
+
+**Computation of Nodes and Weights**: 
+The zeros $\left\{x_j\right\}_{j=0}^N$ of $H_{N+1}(x)$ are the eigenvalues of the symmetric tridiagonal matrix
+
+$$
+A_{N+1}=\left[\begin{array}{ccccc}
+a_0 & \sqrt{b_1} & & & \\
+\sqrt{b_1} & a_1 & \sqrt{b_2} & & \\
+& \ddots & \ddots & \ddots & \\
+& & \sqrt{b_{N-1}} & a_{N-1} & \sqrt{b_N} \\
+& & & \sqrt{b_N} & a_N
+\end{array}\right]
+$$
+
+whose entries are 
+
+$$
+a_j=0, \quad 0 \leq j \leq N ; \quad b_j=j / 2, \quad 1 \leq j \leq N
+$$
+
+The quadrature weights $\left\{\omega_j\right\}_{j=0}^N$ might be computed from the first component of the orthonormal eigenvectors of $A_{N+1}$, or from the weight formula (7.79). However,
+
+The corresponding implementation is available in the file `lapsnw.m`.
+
+**Laguerre functions**: 
+The generalized Laguerre functions (GLFs) are defined by
+
+$$
+\widehat{\mathscr{L}}_n^{(\alpha)}(x):=e^{-x / 2} \mathscr{L}_n^{(\alpha)}(x), \quad x \in \mathbb{R}_{+}, \quad \alpha>-1
+$$
+
+The corresponding implementation is available in the file `lafs.m`.
+
+**Computation of Nodes and Weights (Laguerre funtions)**: 
+Consequently, it is desirable to compute $\left\{\omega_j^{(\alpha)}\right\}_{j=0}^N$ by
+
+$$
+\hat{\omega}_j^{(\alpha)}=e^{x_j^{(\alpha)}} \omega_j^{(\alpha)}, \quad 0 \leq j \leq N.
+$$
+
+The corresponding implementation is available in the file `lafsnw.m`.
+
 ## Special Basis Functions
 This section includes specialized basis functions: generalized Jacobi polynomials, Log-Orthogonal Function-I, Log-Orthogonal Function-II, and Hermite Log-Orthogonal Functions.
