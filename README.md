@@ -164,7 +164,7 @@ $$
 The corresponding implementation is available in the file `lafs.m`.
 
 **Computation of Nodes and Weights (Laguerre funtions)**: 
-Consequently, it is desirable to compute $\{\omega_j^{(\alpha)}\}_{j=0}^N$ by
+Consequently, it is desirable to compute $`\left\{\omega_j^{(\alpha)}\right\}_{j=0}^N`$ by
 
 $$
 \hat{\omega}_j^{(\alpha)}=e^{x_j^{(\alpha)}} \omega_j^{(\alpha)}, \quad 0 \leq j \leq N.
@@ -215,27 +215,31 @@ $$
 a_j=0, \quad 0 \leq j \leq N ; \quad b_j=j / 2, \quad 1 \leq j \leq N
 $$
 
-The quadrature weights $\left\{\omega_j\right\}_{j=0}^N$ might be computed from the first component of the orthonormal eigenvectors of $A_{N+1}$, or from the weight formula (7.79). However,
-
-The corresponding implementation is available in the file `lapsnw.m`.
-
-**Laguerre functions**: 
-The generalized Laguerre functions (GLFs) are defined by
+The quadrature weights $\left\{\omega_j\right\}_{j=0}^N$ might be computed from the first component of the orthonormal eigenvectors of $A_{N+1}$ or more stable way
 
 $$
-\widehat{\mathscr{L}}_n^{(\alpha)}(x):=e^{-x / 2} \mathscr{L}_n^{(\alpha)}(x), \quad x \in \mathbb{R}_{+}, \quad \alpha>-1
+\omega_j=\frac{\sqrt{\pi} 2^N N!}{(N+1) H_N^2\left(x_j\right)}.
 $$
 
-The corresponding implementation is available in the file `lafs.m`.
+The corresponding implementation is available in the file `hpsnw.m`.
+
+**Hermite functions**: 
+The Hermite functions are defined by
+
+$$
+\widehat{H}_n(x)=\frac{1}{\pi^{1 / 4} \sqrt{2^n n!}} e^{-x^2 / 2} H_n(x), \quad n \geq 0, x \in \mathbb{R}.
+$$
+
+The corresponding implementation is available in the file `hfs.m`.
 
 **Computation of Nodes and Weights (Laguerre funtions)**: 
-Consequently, it is desirable to compute $\left\{\omega_j^{(\alpha)}\right\}_{j=0}^N$ by
+ Define the modified weights as
 
 $$
-\hat{\omega}_j^{(\alpha)}=e^{x_j^{(\alpha)}} \omega_j^{(\alpha)}, \quad 0 \leq j \leq N.
+\hat{\omega}_j=e^{x_j^2} \omega_j=\frac{1}{(N+1) \widehat{H}_N^2\left(x_j\right)}, \quad 0 \leq j \leq N .
 $$
 
-The corresponding implementation is available in the file `lafsnw.m`.
+The corresponding implementation is available in the file `hfsnw.m`.
 
 ## Special Basis Functions
 This section includes specialized basis functions: generalized Jacobi polynomials, Log-Orthogonal Function-I, Log-Orthogonal Function-II, and Hermite Log-Orthogonal Functions.
